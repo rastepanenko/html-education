@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  GearboxSection {
+    display: flex;
+    flex-direction: row;
+    }
+  ConditionSection {
+    display: flex;
+    flex-direction: row;
+    }
+  DateSection {
+    display: flex;
+    flex-direction: row;
+    }  
+</style>
+</head>
+<body>
+  <h4>Выберите марку</h4>
+  <select>
+	<option>МАРКА</option>
+    <option>Audi</option>
+    <option>BMW</option>
+    <option>Mercedes-Benz</option>
+  </select>
+  <select>
+    <option>МОДЕЛЬ</option>
+  </select>
+  <h4>КПП</h4>
+  <GearboxSection>
+    <p>
+      <input type="radio" checked value="МКПП" name="GearBox"/>МКПП
+    </p>
+    <p>
+      <input type="radio" value="АКПП" name="GearBox"/>АКПП
+    </p>
+    <p>
+      <input type="radio" value="Вариатор" name="GearBox"/>Вариатор
+    </p>
+    <p>
+      <input type="radio" value="Робот" name="GearBox"/>Робот
+    </p>
+  </GearboxSection>
+  <h4>Состояние</h4>
+  <ConditionSection>
+    <p>
+      <input type="checkbox" name="Condition"/>Новая
+    </p>
+    <p>
+    <input type="checkbox" name="Condition"/>Б/У
+    </p>
+    </ConditionSection>
+  <DateSection>
+    <h4>Дата выпуска</h4>
+    <input type="date">
+  </DateSection>
+  <h4>Комментарий</h4>
+  <p><textarea rows="10" cols="45" name="text"></textarea></p>
+  <form id="nubexForm" action="do.php">  
+    <input type="submit" value="Отправить" />
+  </form>
+</body>
+</html>
