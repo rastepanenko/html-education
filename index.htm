@@ -48,18 +48,36 @@
     <p>
       <input type="checkbox" name="Condition"/>Новая
     </p>
-    <p>
-    <input type="checkbox" name="Condition"/>Б/У
-    </p>
     </ConditionSection>
   <DateSection>
     <h4>Дата выпуска</h4>
     <input type="date">
   </DateSection>
   <h4>Комментарий</h4>
-  <p><textarea rows="10" cols="45" name="text"></textarea></p>
-  <form id="nubexForm" action="do.php">  
+  <p><textarea rows="10" cols="45" name="text"></textarea></p> 
     <input type="submit" value="Отправить" />
-  </form>
+  <table border="1">
+   <tr>
+    <th>Марка</th>
+    <th>Модель</th>
+    <th>Состояние</th>
+    <th>Год выпуска</th>
+    <th>Комментарий</th>
+   </tr>
+   <tr>
+    <td>Audi</td>
+    <td>A5</td>
+    <td>Новая</td>
+    <td>2022</td>
+    <td>Зеленый цвет</td>
+  </tr>
+  <tr>
+    <td>BMW</td>
+    <td>3-Series</td>
+    <td>Б/У</td>
+    <td>2008</td>
+    <td>2 хозяина</td>
+  </tr>
+ </table>
 </body>
 </html>
