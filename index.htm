@@ -19,19 +19,19 @@
 </head>
 <body>
   <h4>Выберите марку</h4>
-  <select>
-	<option>МАРКА</option>
-    <option>Audi</option>
-    <option>BMW</option>
-    <option>Mercedes-Benz</option>
+  <select name="Car" id="Car" value="МАРКА" onchange="getCarModels()">
+	<option selected disabled hidden>МАРКА</option>
+    <option value="Audi">Audi</option>
+    <option value="BMW">BMW</option>
+    <option value="MercedesBenz">MercedesBenz</option>
   </select>
-  <select>
-    <option>МОДЕЛЬ</option>
+  <select name="Model" id="Model" value="МОДЕЛЬ">
+   <option hidden="hidden">МОДЕЛЬ</option>
   </select>
   <h4>КПП</h4>
-  <GearboxSection>
+  <GearboxSection id="Gearbox">
     <p>
-      <input type="radio" checked value="МКПП" name="GearBox"/>МКПП
+      <input type="radio" value="МКПП" name="GearBox"/>МКПП
     </p>
     <p>
       <input type="radio" value="АКПП" name="GearBox"/>АКПП
@@ -46,38 +46,119 @@
   <h4>Состояние</h4>
   <ConditionSection>
     <p>
-      <input type="checkbox" name="Condition"/>Новая
+      <input type="checkbox" id="State" value="Новая"/>Новая
     </p>
-    </ConditionSection>
+  </ConditionSection>
   <DateSection>
     <h4>Дата выпуска</h4>
-    <input type="date">
+    <input type="date" id="Date">
   </DateSection>
   <h4>Комментарий</h4>
-  <p><textarea rows="10" cols="45" name="text"></textarea></p> 
-    <input type="submit" value="Отправить" />
-  <table border="1">
+  <p><textarea rows="10" cols="45" name="text" id="Comment"></textarea></p> 
+  <button onclick="addTableRow()">
+    Отправить
+  </button>
+  <table border="1" id="myTable">
    <tr>
     <th>Марка</th>
     <th>Модель</th>
+    <th>КПП</th>
     <th>Состояние</th>
     <th>Год выпуска</th>
     <th>Комментарий</th>
    </tr>
-   <tr>
-    <td>Audi</td>
-    <td>A5</td>
-    <td>Новая</td>
-    <td>2022</td>
-    <td>Зеленый цвет</td>
-  </tr>
-  <tr>
-    <td>BMW</td>
-    <td>3-Series</td>
-    <td>Б/У</td>
-    <td>2008</td>
-    <td>2 хозяина</td>
-  </tr>
  </table>
+ <script>
+  function addTableRow() {
+    var table = document.getElementById("myTable"),
+    
+      carValue = document.getElementById("Car").value;
+      
+      modelValue = document.getElementById("Model").value;
+      
+      var gearBoxValue = document.getElementsByName('GearBox');
+      var checkedGearBoxMethod;
+      for ( var i = 0; i < gearBoxValue.length; i++) {
+        if(gearBoxValue[i].checked) {
+          checkedGearBoxMethod = gearBoxValue[i];
+          break;
+        }
+      }
+
+      stateValue = document.getElementById("State");
+      var checkedStateMethod;
+      if(stateValue.checked) {
+        checkedStateMethod = stateValue.value;
+        }
+      else {
+        stateValue.value = "Б/У";
+        checkedStateMethod = stateValue.value;
+        }
+      
+      dateValue = document.getElementById("Date").value;
+      
+      commentValue = document.getElementById("Comment").value;
+      
+      newRow = table.insertRow(),
+      carCell = newRow.insertCell(),
+      modelCell = newRow.insertCell(),
+      gearBoxCell = newRow.insertCell(),
+      stateCell = newRow.insertCell(),
+      dateCell = newRow.insertCell(),
+      commentCell = newRow.insertCell();
+ 
+    carCell.textContent = carValue;
+    modelCell.textContent = modelValue;
+    gearBoxCell.textContent = checkedGearBoxMethod.value;
+    stateCell.textContent = checkedStateMethod;
+    dateCell.textContent = dateValue;
+    commentCell.textContent = commentValue;
+    
+    document.getElementById("Car").selectedIndex = 0;
+    document.getElementById("Model").selectedIndex = 0;
+    checkedGearBoxMethod.checked = false;
+    document.getElementById("State").checked = false;
+    document.getElementById("Date").value = "";
+    document.getElementById("Comment").value = "";
+    
+  }
+  
+  function getCarModels() {
+    var modelsElement = document.getElementById("Model");
+    
+    clearModelsList(modelsElement);
+    addCarModelsList(modelsElement);
+  }
+  
+  function clearModelsList(modelsElement) {
+    var modelsElementLength = modelsElement.options.length;
+    
+    for(i = 1; i <  modelsElement.options.length; i++) {
+    console.log(modelsElement.options[i].remove());
+      if (modelsElement[i] !== undefined) {
+		modelsElement[i].remove();
+      }
+      modelsElement.options[i].remove();
+    }
+  }
+  
+  function addCarModelsList(modelsElement) {
+    var car = document.getElementById("Car");
+    
+    var models = {
+      Audi: ["A3", "A4", "A5"],
+      BMW: ["3-Series", "5-Series", "7-Series"],
+      MercedesBenz: ["A-Class", "C-Class", "E-Class"]
+    };
+    
+    for(i = 0; i < models[car.value].length; i++) {
+ 	  var option = document.createElement("option");
+        option.innerText = models[car.value][i];
+        document.getElementById("Model").appendChild(option);
+    }
+  }
+
+ 
+</script>
 </body>
 </html>
