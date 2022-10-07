@@ -58,6 +58,9 @@
   <button onclick="addTableRow()">
     Отправить
   </button>
+  <button onclick="deleteTableRow()">
+    Очистить
+  </button>
   <table border="1" id="myTable">
    <tr>
     <th>Марка</th>
@@ -133,9 +136,12 @@
   function clearModelsList(modelsElement) {
     var modelsElementLength = modelsElement.options.length;
     
+    console.log("clear!!!!!!!!!!");
+    
     for(i = 1; i <  modelsElement.options.length; i++) {
     console.log(modelsElement.options[i].remove());
       if (modelsElement[i] !== undefined) {
+        console.log(modelsElement[i]);
 		modelsElement[i].remove();
       }
       modelsElement.options[i].remove();
@@ -156,6 +162,10 @@
         option.innerText = models[car.value][i];
         document.getElementById("Model").appendChild(option);
     }
+  }
+  
+  function deleteTableRow() {
+    document.getElementById("myTable").deleteRow(1); 
   }
 
  
