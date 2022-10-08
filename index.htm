@@ -58,64 +58,99 @@
   <button onclick="addTableRow()">
     Отправить
   </button>
-  <button onclick="deleteTableRow()">
-    Очистить
-  </button>
   <table border="1" id="myTable">
-   <tr>
-    <th>Марка</th>
-    <th>Модель</th>
-    <th>КПП</th>
-    <th>Состояние</th>
-    <th>Год выпуска</th>
-    <th>Комментарий</th>
-   </tr>
+    <thead>
+      <tr>
+        <th>Марка</th>
+        <th>Модель</th>
+        <th>КПП</th>
+        <th>Состояние</th>
+        <th>Год выпуска</th>
+        <th>Комментарий</th>
+        <th>Удалить</th>
+      </tr>
+    </thead>
+    <tbody id="tBody">
+    </tbody>
  </table>
  <script>
   function addTableRow() {
-    var table = document.getElementById("myTable"),
+    var table = document.getElementById("myTable");
     
-      carValue = document.getElementById("Car").value;
+    var tr = document.createElement("tr");
+    var tBody = document.getElementById("tBody");
+    tBody.appendChild(tr);
+    
+    carValue = document.getElementById("Car").value;
       
-      modelValue = document.getElementById("Model").value;
+    modelValue = document.getElementById("Model").value;
       
-      var gearBoxValue = document.getElementsByName('GearBox');
-      var checkedGearBoxMethod;
-      for ( var i = 0; i < gearBoxValue.length; i++) {
-        if(gearBoxValue[i].checked) {
-          checkedGearBoxMethod = gearBoxValue[i];
-          break;
-        }
+    var gearBoxValue = document.getElementsByName('GearBox');
+    var checkedGearBoxMethod;
+    var isChecked;
+    
+    for ( var i = 0; i < gearBoxValue.length; i++) {
+      if(gearBoxValue[i].checked) {
+        checkedGearBoxMethod = gearBoxValue[i];
+        isChecked = true;
       }
+    }
 
-      stateValue = document.getElementById("State");
-      var checkedStateMethod;
-      if(stateValue.checked) {
-        checkedStateMethod = stateValue.value;
-        }
-      else {
-        stateValue.value = "Б/У";
-        checkedStateMethod = stateValue.value;
-        }
+    stateValue = document.getElementById("State");
+    var checkedStateMethod;
+    if(stateValue.checked) {
+      checkedStateMethod = stateValue.value;
+      }
+    else {
+      stateValue.value = "Б/У";
+      checkedStateMethod = stateValue.value;
+      }
       
-      dateValue = document.getElementById("Date").value;
+    dateValue = document.getElementById("Date").value;
       
-      commentValue = document.getElementById("Comment").value;
-      
-      newRow = table.insertRow(),
-      carCell = newRow.insertCell(),
-      modelCell = newRow.insertCell(),
-      gearBoxCell = newRow.insertCell(),
-      stateCell = newRow.insertCell(),
-      dateCell = newRow.insertCell(),
-      commentCell = newRow.insertCell();
- 
-    carCell.textContent = carValue;
-    modelCell.textContent = modelValue;
-    gearBoxCell.textContent = checkedGearBoxMethod.value;
-    stateCell.textContent = checkedStateMethod;
-    dateCell.textContent = dateValue;
-    commentCell.textContent = commentValue;
+    commentValue = document.getElementById("Comment").value;
+    
+    var trBody = document.getElementById("trBody");
+    
+    var tdCar = document.createElement('td');
+    tdCar.innerText = carValue;
+    tr.appendChild(tdCar);
+    
+    var tdModel = document.createElement('td');
+    tdModel.innerText = modelValue;
+    tr.appendChild(tdModel);
+    
+    var tdGearBox = document.createElement('td'); 
+    tr.appendChild(tdGearBox);
+    if (!isChecked) {
+      tdGearBox.innerText = "Не выбрано";
+    }
+    else {
+      tdGearBox.innerText = checkedGearBoxMethod.value;
+    }
+    
+    var tdState = document.createElement('td');
+    tdState.innerText = checkedStateMethod;
+    tr.appendChild(tdState);
+    
+    var tdDate = document.createElement('td');
+    tdDate.innerText = dateValue;
+    tr.appendChild(tdDate);
+    
+    var tdComment = document.createElement('td');
+    tdComment.innerText = commentValue;
+    tr.appendChild(tdComment);
+    
+    var removeButton = document.createElement("input");
+    removeButton.type = "button";
+    removeButton.value = "Удалить";
+    removeButton.onclick = () => {
+      tr.remove();
+    };
+    
+    var td = document.createElement('td');
+    td.appendChild(removeButton);
+    tr.appendChild(td);
     
     document.getElementById("Car").selectedIndex = 0;
     document.getElementById("Model").selectedIndex = 0;
@@ -123,6 +158,7 @@
     document.getElementById("State").checked = false;
     document.getElementById("Date").value = "";
     document.getElementById("Comment").value = "";
+    
     
   }
   
@@ -165,9 +201,8 @@
   }
   
   function deleteTableRow() {
-    document.getElementById("myTable").deleteRow(1); 
+    //document.getElementById("myTable").deleteRow(); 
   }
-
  
 </script>
 </body>
